@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Presenter extends Model
 {
     public $timestamps = false;
-    
+    protected $guarded = ['id'];
     use HasFactory;
 
     public function tvshows(){

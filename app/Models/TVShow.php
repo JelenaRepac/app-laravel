@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TVShow extends Model
 {
-   
+    protected $guarded = ['id'];
 
     use HasFactory;
 
