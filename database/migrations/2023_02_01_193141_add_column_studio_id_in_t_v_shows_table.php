@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('t_v_shows', function (Blueprint $table) {
-            $table->id();
-            $table->string("name")->unique();
-            $table->text("description")->nullable();
-            $table->integer("duration");
-            $table->timestamps();
+        Schema::table('t_v_shows', function (Blueprint $table) {
+            $table->foreignId("studio_id");
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t_v_shows');
+        Schema::table('t_v_shows', function (Blueprint $table) {
+            $table->dropForeign("studio_id");
+        });
     }
 };

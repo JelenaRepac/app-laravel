@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Presenter;
+use App\Models\Studio;
+use App\Models\TVShow;
+use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,12 +17,23 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        // \App\Models\User::factory(10)->create();
+    {   
+        User::truncate();
+        Presenter::truncate();
+        Studio::truncate();
+        TVShow::truncate();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+         User::factory(5)->create();
+         Presenter::factory(5)->create();
+        //$p1=new Presenter(['name'=>'Mihailo']);
+        //$p2=new Presenter(['name'=>'Igor']);
+        //$p3=new Presenter(['name'=>'Kosta']);
+        //$p1->save();
+        //$p2->save();
+        //$p3->save();
+         Studio::factory(5)->create();
+         TVShow::factory(5)->create();
+        // TVShow::factory(5)->create(['presenter_id'=>$p3->id]);
+         
     }
 }

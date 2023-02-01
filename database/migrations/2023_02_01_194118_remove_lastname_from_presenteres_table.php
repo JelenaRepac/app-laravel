@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('t_v_shows', function (Blueprint $table) {
-            $table->foreignId("studio_id");
+        Schema::table('presenters', function (Blueprint $table) {
+            $table->dropColumn('lastname');
         });
     }
 
@@ -25,8 +25,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('t_v_shows', function (Blueprint $table) {
-            $table->dropForeign("studio_id");
+        Schema::table('presenters', function (Blueprint $table) {
+            //
+            $table->string('lastname');
         });
     }
 };

@@ -18,6 +18,7 @@ class PresenterFactory extends Factory
     {
         return [
             'firstname'=> $this->faker->name(),
+            'lastname'=> $this->faker->lastName(),
         ];
     }
 }

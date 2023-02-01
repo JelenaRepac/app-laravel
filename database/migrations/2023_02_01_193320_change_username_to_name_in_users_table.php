@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('t_v_shows', function (Blueprint $table) {
-            $table->id();
-            $table->string("name")->unique();
-            $table->text("description")->nullable();
-            $table->integer("duration");
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->renameColumn("username", "name");
         });
     }
 
@@ -29,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t_v_shows');
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->renameColumn("name", "username");
+        });
     }
 };
