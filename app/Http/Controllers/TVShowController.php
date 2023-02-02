@@ -6,6 +6,7 @@ use App\Http\Resources\TVShowCollection;
 use App\Models\TVShow;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Validator;
 class TVShowController extends Controller
 {
     /**
