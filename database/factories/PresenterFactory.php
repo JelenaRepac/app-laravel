@@ -17,7 +17,9 @@ class PresenterFactory extends Factory
     public function definition()
     {
         return [
-            'name'=> $this->faker->name(),
+            'firstname'=> $this->faker->name(),
+            'email'=>$this->faker->email(),
+            'dateOfBirth'=> $this->faker->date(),
         ];
     }
 }

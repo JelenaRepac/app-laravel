@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PresenterResource;
 use App\Models\Presenter;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class PresenterController extends Controller
     public function index()
     {
         $presenters = Presenter::all();
-        return new PresenterController($presenters);
+        return $presenters;
     }
 
     /**
@@ -58,10 +59,12 @@ class PresenterController extends Controller
      */
     public function show($id)
     {
-        $pres = Presenter::find($id);
+         $pres = Presenter::find($id);
         if (is_null($pres))
             return response()->json('Data not found', 404);
         return response()->json($pres);
+
+       // return new PresenterResource($pres);
     }
 
     /**
@@ -86,7 +89,7 @@ class PresenterController extends Controller
     {
         //validate inputs
         $validator = Validator::make($request->all(), [
-            "name" => 'required|string|max:255',
+            "firstname" => 'required|string|max:255',
           
             
         ]);

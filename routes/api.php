@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PresenterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+//routes for Presenter
+
+Route::resource("presenters", PresenterController::class)->only(['index']);
+
+// Route::get("presenters/{id}", [PresenterController::class, 'show']);
+// Route::put("presenters/{id}", [PresenterController::class, "update"]);
+Route::resource("presenters", PresenterController::class)->only(['store','update','show']);
