@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\PresenteCollection;
-use App\Http\Resources\PresenterCollection;
 use App\Models\Presenter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -66,7 +64,7 @@ class PresenterController extends Controller
     {
          $pres = Presenter::find($id);
         if (is_null($pres))
-            return response()->json('Data not found', 404);
+            return response()->json('Presenter not found!', 404);
         return response()->json($pres);
 
        // return new PresenterResource($pres);

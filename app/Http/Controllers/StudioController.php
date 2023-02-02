@@ -14,7 +14,7 @@ class StudioController extends Controller
      */
     public function index()
     {
-        //
+        return Studio::all();
     }
 
     /**
@@ -35,7 +35,27 @@ class StudioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $validator = Validator::make($request->all(), [
+            "name" => 'required|string|max:255|unique:studios',
+            "price"=>'required'
+            
+        ]);
+
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+        
+        $studio = Studio::create([
+            'name' => $request->$request->name,
+            'price'=>$request->price
+           
+        ]);
+        $studio->save();
+
+
+        return response()->json(['Studio is created successfully.', $studio]);
+   
     }
 
     /**
@@ -44,9 +64,12 @@ class StudioController extends Controller
      * @param  \App\Models\Studio  $studio
      * @return \Illuminate\Http\Response
      */
-    public function show(Studio $studio)
+    public function show($id)
     {
-        //
+        $st = Studio::find($id);
+        if (is_null($st))
+            return response()->json('Data not found', 404);
+        return response()->json($st);
     }
 
     /**
@@ -67,9 +90,24 @@ class StudioController extends Controller
      * @param  \App\Models\Studio  $studio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Studio $studio)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            "name" => 'required|string|max:255|unique:studios',
+            "price"=>'required'
+            
+        ]);
+
+        if ($validator->fails())
+     
+            return response()->json($validator->errors());
+
+        //get the studio
+        $studio=Studio::find($id);
+        //update it
+        $studio->update($request->all());
+        //return it
+        return $studio;
     }
 
     /**
@@ -78,8 +116,8 @@ class StudioController extends Controller
      * @param  \App\Models\Studio  $studio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Studio $studio)
+    public function destroy($id)
     {
-        //
+        Studio::destroy($id);
     }
 }
