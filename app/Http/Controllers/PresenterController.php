@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\PresenterResource;
+use App\Http\Resources\PresenteCollection;
+use App\Http\Resources\PresenterCollection;
 use App\Models\Presenter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PresenterController extends Controller
 {
@@ -15,8 +17,7 @@ class PresenterController extends Controller
      */
     public function index()
     {
-        $presenters = Presenter::all();
-        return $presenters;
+        return Presenter::all();
     }
 
     /**
@@ -38,16 +39,20 @@ class PresenterController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            "name" => 'required|string|max:255',
+            "firstname" => 'required|string|max:255',
+            "email"=>'required|string|max:40|unique:presenters',
+            "dateOfBirth"=>'required|string|max:15',
         ]);
 
         if ($validator->fails())
             return response()->json($validator->errors());
 
         $presenter = Presenter::create([
-            'name' => $request->name
+            'firstname' => $request->firstname,
+            'email'=> $request->email,
+            'dateOfBirth'=>$request->dateOfBirth,
         ]);
-
+        $presenter->save();
         return response()->json(['Presenter is created successfully.', $presenter]);
     }
 
@@ -90,7 +95,8 @@ class PresenterController extends Controller
         //validate inputs
         $validator = Validator::make($request->all(), [
             "firstname" => 'required|string|max:255',
-          
+            "email"=>'required|string|max:40|unique:presenters',
+            "dateOfBirth"=>'required|string|max:15',
             
         ]);
 
@@ -98,12 +104,14 @@ class PresenterController extends Controller
      
             return response()->json($validator->errors());
 
-        //get the studio
+        
         $presenter=Presenter::find($id);
         //update it
         $presenter->update($request->all());
         //return it
-        return $presenter;
+        return response()->json([
+            "Presenter is successfully updated!"
+          , $presenter]);
     }
 
     /**
@@ -114,6 +122,14 @@ class PresenterController extends Controller
      */
     public function destroy($id)
     {
-        Presenter::destroy($id);
+        $presenter = Presenter::find($id);
+        
+        if($presenter){
+            $presenter->delete();
+            return response()->json(["Presenter is deleted.", $presenter]);
+        }
+        else{
+            return response()->json(['Error!!!']);
+        }
     }
 }

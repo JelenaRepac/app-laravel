@@ -26,4 +26,4 @@ Route::resource("presenters", PresenterController::class)->only(['index']);
 
 // Route::get("presenters/{id}", [PresenterController::class, 'show']);
 // Route::put("presenters/{id}", [PresenterController::class, "update"]);
-Route::resource("presenters", PresenterController::class)->only(['store','update','show']);
+Route::resource("presenters", PresenterController::class)->only(['store','update','show','destroy']);
