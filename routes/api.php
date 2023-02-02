@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\PresenterController;
 use App\Http\Controllers\StudioController;
 use App\Http\Controllers\TVShowController;
@@ -47,3 +48,8 @@ Route::get('/tvshows/search/{name}', [TVShowController::class, 'search']);
 //Route::get("tvshows/{id}", [TVShowController::class, 'show']);
 // Route::put("tvshows/{id}", [TVShowController::class, "update"]);
 Route::resource("tvshows", TVShowController::class)->only(['store', 'update','show']);
+
+
+//route for registration
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
