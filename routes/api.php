@@ -24,18 +24,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 //routes for Presenter
-
 Route::resource("presenters", PresenterController::class)->only(['index']);
+Route::get("presenters/{id}", [PresenterController::class, 'show']);
 
 //routes for Studio
-
 Route::resource("studios", StudioController::class)->only(['index']);
-
+Route::get("studios/{id}", [StudioController::class, 'show']);
 
 //routes for TVShow
-
 Route::resource("tvshows", TVShowController::class)->only(['index']);
 Route::get('/tvshows/search/{name}', [TVShowController::class, 'search']);
+Route::get("tvshows/{id}", [TVShowController::class, 'show']);
 
 //route for registration
 Route::post('/register', [AuthController::class, 'register']);
@@ -48,16 +47,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return auth()->user();
     });
 
-
-    // Route::get("presenters/{id}", [PresenterController::class, 'show']);
     // Route::put("presenters/{id}", [PresenterController::class, "update"]);
-    Route::resource("presenters", PresenterController::class)->only(['store', 'update', 'show', 'destroy']);
-
-    // Route::get("studios/{id}", [StudioController::class, 'show']);
+    Route::resource("presenters", PresenterController::class)->only(['store', 'update','destroy']);
+    
     // Route::put("studios/{id}", [StudioController::class, "update"]);
-    Route::resource("studios", StudioController::class)->only(['store', 'update', 'show', 'destroy']);
+    Route::resource("studios", StudioController::class)->only(['store', 'update','destroy']);
 
-    //Route::get("tvshows/{id}", [TVShowController::class, 'show']);
     // Route::put("tvshows/{id}", [TVShowController::class, "update"]);
     Route::resource("tvshows", TVShowController::class)->only(['store', 'update', 'show']);
 
